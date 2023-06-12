@@ -2,23 +2,25 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Routes, Route } from "react-router-dom";
+import {BrowserRouter, Routes, Route, HashRouter} from "react-router-dom";
 import LoginForm from "./humanResources/LoginForm";
 import MainPage from "./humanResources/MainPage";
 import ListBooks from "./humanResources/ListBooks";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import NewBook from "./humanResources/NewBook";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
             <Route path="/" element={<App/>}></Route>
             <Route path="login" element={<LoginForm/>}></Route>
             <Route path="main" element={<MainPage/>}></Route>
             <Route path="books" element={<ListBooks/>}></Route>
+            <Route path="newbook" element={<NewBook/>}></Route>
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

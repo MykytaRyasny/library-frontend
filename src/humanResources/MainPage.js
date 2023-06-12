@@ -1,37 +1,33 @@
 import React from 'react';
-import Button from 'react-bootstrap/Button';
-import axios from "axios";
-import {useLocation, useNavigate} from 'react-router-dom';
-import {Col, Container, Row} from "react-bootstrap";
 import NavBar from "./NavBar";
-function MainPage() {
-    const location = useLocation();
-    const {state:userData} = location;
-    const navigate = useNavigate();
+import Card from 'react-bootstrap/Card';
+import {userDetail} from './LoginForm'
+import Container from "react-bootstrap/Container";
+import {Col, Row} from "react-bootstrap";
 
-    function onClickList(){
-        axios
-            .get('/books/all')
-            .then(response => navigate('/books', {state: response.data}))
-            .catch(error => console.log(error))
-    }
+function MainPage() {
 
     return (
         <>
             <NavBar></NavBar>
             <Container fluid>
-                <Row style={{padding:20}}>
-                    <Col md={{span:1, offset:11}}> <Button variant="outline-primary" onClick={
-                        event => navigate('/')
-                    }>Logout</Button></Col>
+
+                <Row style={{
+                    position: 'absolute', left: '50%', top: '50%',
+                    transform: 'translate(-50%, -50%)'
+                }}>
+                    <Col>
+                        <Card style={{width: '18rem'}}>
+                            <Card.Body>
+                                <Card.Title>Welcome {userDetail.firstName} {userDetail.lastName}</Card.Title>
+                                <Card.Subtitle className="mb-2 text-muted">{userDetail.username}</Card.Subtitle>
+                                <Card.Text>
+                                    Welcome to library! Have a nice working day!
+                                </Card.Text>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
-                {(() => { if(userData.rol === "admin" || userData.rol === "hr") {
-                    return <Button variant="outline-primary" onClick={
-                    event => onClickList()
-                }>Todos los trabajadores</Button>;
-                } else {
-                    return console.log();
-                }})()}
             </Container>
         </>
     );

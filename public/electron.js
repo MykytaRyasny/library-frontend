@@ -14,7 +14,7 @@ function createWindow() {
         // communicate between node-land and browser-land.
         webPreferences: {
             preload: path.join(__dirname, "preload.js"),
-            webSecurity: app.isPackaged
+            webSecurity: false
         },
     });
     // disable all shortcuts and menu bar

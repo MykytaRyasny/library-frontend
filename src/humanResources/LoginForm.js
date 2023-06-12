@@ -6,6 +6,7 @@ import Button from 'react-bootstrap/Button';
 import {Col, Container, Row} from "react-bootstrap";
 import Image from 'react-bootstrap/Image';
 import logo from '../resources/logo_library.png'
+import api from './AxiosConfig'
 const LoginForm = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -14,13 +15,15 @@ const LoginForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        axios.defaults.baseURL = 'http://127.0.0.1:8081';
+        axios.defaults.baseURL = 'http://195.135.254.207:8080/library';
         try {
             const response = await axios.post('/auth/login',
             {
                 username,
                 password
             })
+            api.defaults.headers["x-auth-token"] = response.headers["x-auth-token"]
+            userDetail = response.data
             navigate('main', {state: response.data});
         } catch (error) {
             console.error(error)
@@ -60,5 +63,6 @@ const LoginForm = () => {
         </Container>
     );
 };
+export let userDetail;
 
 export default LoginForm;
